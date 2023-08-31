@@ -10,3 +10,5 @@ yarn-error.log
 .vscode
 #coverage
 coverage
+# idea
+.idea
