@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "moduleResolution": "node",
+    "module": "CommonJS",
     "pretty": true,
     "resolveJsonModule": true,
     "sourceMap": true,
@@ -9,7 +8,8 @@
     "outDir": "./dist",
     "baseUrl": "./src",
     "experimentalDecorators": true,
-    "strict": true
+    "strict": true,
+    "allowSyntheticDefaultImports": true,
   },
   "include": ["src/**/*.ts", ".eslintrc.js", "jest.config.ts"],
   "exclude": ["node_modules", "src/**/*.spec.ts"]

@@ -8,6 +8,7 @@ COPY yarn.lock ./
 
 # install dependencies
 RUN yarn
+RUN npx prisma generate
 
 # copy the entire project
 COPY . .
@@ -15,5 +16,4 @@ COPY . .
 # build
 RUN yarn build
 
-EXPOSE 3000
 CMD [ "yarn", "start" ]
