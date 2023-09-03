@@ -1,18 +1,17 @@
-import { NextFunction, Request, Response } from 'express'
+import { Request, Response } from 'express'
 import { prisma, redis } from '../app';
 import { generateKey, validateKey, validateUrl } from '../services/url.service'
 
-type RouteParams = (req: Request, res: Response, next: NextFunction) => any
+type RouteParams = (req: Request, res: Response) => any
 
-class HomeController {
+export class HomeController {
 
-  create: RouteParams = async (req, res, next) => {
+  create: RouteParams = async (req, res) => {
     const original = req.body.url
 
     if (!original) {
       return res.status(406).json({ message: 'url is required' })
     }
-    console.log(validateUrl(original), original)
     if (!validateUrl(original)) {
       return res.status(400).json({ message: 'invalid url'})
     }
@@ -31,7 +30,7 @@ class HomeController {
       await prisma.url.create({ data: { original, key } })
       await redis.set(original, key)
 
-      res.status(201).json({ url: req.baseUrl + '/' + key })
+      res.status(201).json({ url: key })
 
     } catch (err) {
       console.log(err);
@@ -39,7 +38,7 @@ class HomeController {
     }
   }
 
-  read: RouteParams = async (req, res, next) => {
+  read: RouteParams = async (req, res) => {
     const key = req.params.key
 
     if (!key) {
